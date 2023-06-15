@@ -1,5 +1,5 @@
 export default function Home() {
   return (
-    <div className="text-rose-500 text-2xl">Hello NextJs Airbnb Project</div>
+    <div className="text-rose-500 text-2xl">Airbnb Clone Project</div>
   )
 }

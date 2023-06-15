@@ -1,6 +1,9 @@
+import ClientOnly from './components/ClientOnly'
+import RegisterModal from './components/modals/RegisterModal'
 import Navbar from './components/navbar/Navbar'
 import './globals.css'
 import { Nunito } from 'next/font/google'
+import ToasterProvider from './providers/ToasterProvider'
 
 const inter = Nunito({
   subsets: ['latin']
@@ -8,7 +11,7 @@ const inter = Nunito({
 
 export const metadata = {
   title: 'Airbnb',
-  description: 'Airbnb clone to consolidate knowledge',
+  description: 'Airbnb clone',
 }
 
 export default function RootLayout({
@@ -19,7 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
+        <ClientOnly>
+          <ToasterProvider />
+          <RegisterModal />
+          <Navbar />
+        </ClientOnly>
+
         {children}
       </body>
     </html>
