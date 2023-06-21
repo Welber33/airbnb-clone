@@ -3,7 +3,7 @@
 import { signIn } from "next-auth/react";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
@@ -17,8 +17,10 @@ import { useRouter } from "next/navigation";
 
 export default function LoginModal() {
   const router = useRouter();
+
   const registerModal = useRegisterModal();
-  const loginModal = useLoginModal()
+  const loginModal = useLoginModal();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -39,20 +41,25 @@ export default function LoginModal() {
       ...data,
       redirect: false,
     })
-    .then((callback) => {
-      setIsLoading(false)
+      .then((callback) => {
+        setIsLoading(false)
 
-      if(callback?.ok) {
-        toast.success('Logged in')
-        router.refresh();
-        loginModal.onClose();
-      }
+        if (callback?.ok) {
+          toast.success('Logged in')
+          router.refresh();
+          loginModal.onClose();
+        }
 
-      if(callback?.error) {
-        toast.error(callback.error);
-      }
-    })
+        if (callback?.error) {
+          toast.error(callback.error);
+        }
+      })
   }
+
+  const toggle = useCallback(() => {
+    loginModal.onClose()
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -101,13 +108,13 @@ export default function LoginModal() {
       <div className="text-neutral-500 text-center mt-4 font-light">
         <div className="justify-center flex flex-row gap-2 items-center">
           <div>
-            Already have an account?
+            First time using Airbnb?
           </div>
           <div
-            onClick={registerModal.onClose}
+            onClick={toggle}
             className="text-neutral-800 cursor-pointer hover:underline"
           >
-            Log in
+            Create an account
           </div>
         </div>
       </div>
