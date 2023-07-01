@@ -70,7 +70,7 @@ export default function ListingClient({ listing, reservations = [], currentUser 
       .then(() => {
         toast.success('Listing reserved!');
         setDateRange(initialDateRange);
-        // Redirect to /trips
+        router.push("/trips");
         router.refresh()
       })
       .catch(() => {
