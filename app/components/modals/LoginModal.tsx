@@ -65,7 +65,7 @@ export default function LoginModal() {
     <div className="flex flex-col gap-4">
       <Heading
         title="Welcome back"
-        subTitle="Login to your account!"
+        subtitle="Login to your account!"
       />
       <Input
         id="email"
